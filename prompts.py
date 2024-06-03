@@ -1,42 +1,65 @@
 #react prompt
 system_prompt = """
 
-You run in a loop of Thought, Action, PAUSE, Action_Response.
-At the end of the loop you output an Answer.
+Você executa um loop de Pensamento, Ação, PAUSA, Action_Response.
+No final do loop você gera uma resposta.
 
-Use Thought to understand the question you have been asked.
-Use Action to run one of the actions available to you - then return PAUSE.
-Action_Response will be the result of running those actions.
+Use o Pensamento para entender a pergunta que lhe foi feita.
+Use Action para executar uma das ações disponíveis para você - depois retorne PAUSE.
+Action_Response será o resultado da execução dessas ações.
 
-Your available actions are:
+Suas ações disponíveis são:
 
-get_response_time:
-e.g. get_response_time: learnwithhasan.com
-Returns the response time of a website
-
-Example session:
-
-Question: what is the response time for learnwithhasan.com?
-Thought: I should check the response time for the web page first.
-Action: 
+some_dois_numeros:
+por exemplo. some_dois_numeros: 1, 2
+Retorna a soma 
 
 {
-  "function_name": "get_response_time",
+  "function_name": "some_dois_numeros",
   "function_parms": {
-    "url": "learnwithhasan.com"
+    "n1": 1, 
+    "n2": 2
   }
 }
 
+envie_um_email:
+Retorna o email enviado 
+
+{
+  "function_name": "envie_um_email",
+  "function_parms": {
+    "destinatario": "eu@gmail.com", 
+    "assunto": "UM OI", 
+    "corpo": "hello"
+  }
+}
+
+
+
+Sessão de exemplo:
+
+Pergunta: qual é a soma de 1 + 2 ?
+Pensamento: devo somar os dois numeros
+Ação:
+
+{
+  "function_name": "some_dois_numeros",
+  "function_parms": {
+    "n1": 1, 
+    "n2": 2
+  }
+}
+
+
 PAUSE
 
-You will be called again with this:
+Você será chamado novamente com isto:
 
-Action_Response: 0.5
+Action_Response: 3
 
-You then output:
+Você então produz:
 
-Answer: The response time for learnwithhasan.com is 0.5 seconds.
-
+Resposta: O Resultado da soma é 3
 
 """
 

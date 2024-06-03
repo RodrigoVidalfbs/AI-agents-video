@@ -1,7 +1,7 @@
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
-from actions import get_response_time
+from actions import some_dois_mumeros, envie_um_email
 from prompts import system_prompt
 from json_helpers import extract_json
 
@@ -22,10 +22,11 @@ def generate_text_with_conversation(messages, model = "gpt-3.5-turbo"):
 
 #Available actions are:
 available_actions = {
-    "get_response_time": get_response_time
+    "some_dois_numeros": some_dois_mumeros, 
+    "envie_um_email":envie_um_email
 }
 
-user_prompt = "what is the response time of learnwithhasan.com?"
+user_prompt = "envia um email para joicevgs@gmail.com, ela é minha esposa, dizendo o quanto eu amo ela. monte um texto com algumas linhas."
 
 messages = [
     {"role": "system", "content": system_prompt},
@@ -46,6 +47,7 @@ while turn_count < max_turns:
     print(response)
 
     json_function = extract_json(response)
+    
 
     if json_function:
             function_name = json_function[0]['function_name']
@@ -57,7 +59,7 @@ while turn_count < max_turns:
             #call the function
             result = action_function(**function_parms)
             function_result_message = f"Action_Response: {result}"
-            messages.append({"role": "user", "content": function_result_message})
+            messages.append({"role": "user", "content": function_result_message})            
             print(function_result_message)
     else:
          break
